@@ -1,0 +1,19 @@
+{
+  "name": "com.xedrial.tools",
+  "version": "0.0.1",
+  "displayName": "Xedrial Tools",
+  "description": "Some useful DOTS and utility tools for projects",
+  "unity": "2021.3",
+  "dependencies": {
+    "com.unity.entities": "0.51.1-preview.21"
+  },
+  "keywords": [
+    "tools",
+    "Xedrial"
+  ],
+  "author": {
+    "name": "Xedrial Games",
+    "email": "xedrialgames@gmail.com"
+  },
+  "type": "tool"
+}
