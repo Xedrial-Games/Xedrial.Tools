@@ -1,15 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
+using UnityEngine;
+
+using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.Mathematics;
-using UnityEngine;
 
 namespace Xedrial
 {
     [Serializable]
-    public struct Grid<TGridData> : IDisposable where TGridData : struct
+    public struct Grid<TGridData> : IDisposable where TGridData : unmanaged
     {
         public int Width
         {

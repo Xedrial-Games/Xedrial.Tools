@@ -2,10 +2,10 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 
-namespace Xedrial.Utilities
+namespace Xedrial.Utility
 {
     [BurstCompile]
-    public struct NativeQueueToArrayJob<T> : IJob where T : struct
+    public struct NativeQueueToArrayJob<T> : IJob where T : unmanaged
     {
         public NativeQueue<T> NativeQueue;
         public NativeArray<T> NativeArray;

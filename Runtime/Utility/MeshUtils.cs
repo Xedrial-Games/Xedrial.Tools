@@ -13,7 +13,9 @@
 using System;
 using UnityEngine;
 
-namespace Xedrial.Utilities
+using Xedrial.Mathematics;
+
+namespace Xedrial.Utility
 {
     public struct MeshInfo
     {
@@ -24,15 +26,15 @@ namespace Xedrial.Utilities
 
     public static class MeshUtils
     {
-        private static Quaternion[] cachedQuaternionEulerArr;
+        private static Quaternion[] s_CachedQuaternionEulerArr;
 
         private static void CacheQuaternionEuler()
         {
-            if (cachedQuaternionEulerArr != null) return;
-            cachedQuaternionEulerArr = new Quaternion[360];
+            if (s_CachedQuaternionEulerArr != null) return;
+            s_CachedQuaternionEulerArr = new Quaternion[360];
             for (int i = 0; i < 360; i++)
             {
-                cachedQuaternionEulerArr[i] = Quaternion.Euler(0, 0, i);
+                s_CachedQuaternionEulerArr[i] = Quaternion.Euler(0, 0, i);
             }
         }
 
@@ -42,8 +44,10 @@ namespace Xedrial.Utilities
             rot %= 360;
             if (rot < 0) rot += 360;
             //if (rot >= 360) rot -= 360;
-            if (cachedQuaternionEulerArr == null) CacheQuaternionEuler();
-            return cachedQuaternionEulerArr[rot];
+            if (s_CachedQuaternionEulerArr == null)
+                CacheQuaternionEuler();
+            
+            return s_CachedQuaternionEulerArr![rot];
         }
 
 
@@ -81,9 +85,9 @@ namespace Xedrial.Utilities
                 mesh = CreateEmptyMesh();
             }
 
-            Vector3[] vertices = new Vector3[4 + mesh.vertices.Length];
-            Vector2[] uvs = new Vector2[4 + mesh.uv.Length];
-            int[] triangles = new int[6 + mesh.triangles.Length];
+            var vertices = new Vector3[4 + mesh.vertices.Length];
+            var uvs = new Vector2[4 + mesh.uv.Length];
+            var triangles = new int[6 + mesh.triangles.Length];
 
             mesh.vertices.CopyTo(vertices, 0);
             mesh.uv.CopyTo(uvs, 0);
@@ -99,7 +103,7 @@ namespace Xedrial.Utilities
 
             baseSize *= .5f;
 
-            bool skewed = baseSize.x != baseSize.y;
+            bool skewed = !xmath.Equal(baseSize.x, baseSize.y);
             if (skewed)
             {
                 vertices[vIndex0] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, baseSize.y);
@@ -153,7 +157,7 @@ namespace Xedrial.Utilities
 
             baseSize *= .5f;
 
-            bool skewed = baseSize.x != baseSize.y;
+            bool skewed = !xmath.Equal(baseSize.x, baseSize.y);
             if (skewed)
             {
                 vertices[vIndex0] = pos + GetQuaternionEuler(rot) * new Vector3(-baseSize.x, baseSize.y);
