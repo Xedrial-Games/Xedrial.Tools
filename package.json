@@ -5,7 +5,7 @@
   "description": "Some useful DOTS and utility tools for projects",
   "unity": "2021.3",
   "dependencies": {
-    "com.unity.entities": "0.51.1-preview.21"
+    "com.unity.entities": "1.0.0-pre.65"
   },
   "keywords": [
     "tools",
